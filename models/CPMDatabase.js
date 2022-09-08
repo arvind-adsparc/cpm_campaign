@@ -1,43 +1,43 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
-const cpmDatabaseSchema = new Mongoose.Schema({
+const cpmDatabaseSchema = new mongoose.Schema({
   partner: {
     type: String,
   },
-  inventory_type: {
+  inventoryType: {
     type: String,
   },
-  gaming_inventory_type: {
+  gamingInventoryType: {
     type: String,
   },
   categories: {
     type: String,
   },
-  publisher_name: {
+  publisherName: {
     type: String,
   },
   appstore: {
     type: String,
   },
-  ad_format: {
+  adFormat: {
     type: String,
   },
-  app_id: {
+  appId: {
     type: String,
   },
-  app_name: {
+  appName: {
     type: String,
   },
-  ad_unit_name: {
+  adUnitName: {
     type: String,
   },
-  publisher_net_price: {
+  publisherNetPrice: {
     type: String,
   },
-  gam_cpm: {
+  gamCpm: {
     type: String,
   },
-  adSparc_marign_media: {
+  adSparcMarignMedia: {
     type: String,
   },
   createdAt: {

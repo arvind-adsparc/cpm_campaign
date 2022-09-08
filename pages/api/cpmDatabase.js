@@ -19,10 +19,10 @@ export default async function handler(req, res) {
       try {
         console.log("getting this far");
 
-        const data = await CPMDatabase.create(req.body);
-        res.status(201).json({ success: true, data });
+        const entry = await CPMDatabase.create(JSON.parse(req.body));
+        res.status(201).json({ success: true, data: entry });
       } catch (err) {
-        console.log("getting this far 2");
+        console.log("getting this far 2", err);
 
         res.status(400).json({ error: err });
       }
