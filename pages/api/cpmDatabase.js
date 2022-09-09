@@ -37,11 +37,17 @@ export default async function handler(req, res) {
           }
 
           if (categories !== "All") {
-            data = await data.filter((info) => info.categories === categories);
+            const categoriesArr = categories.split(",");
+            data = await data.filter((info) =>
+              categoriesArr.includes(info.categories)
+            );
           }
 
           if (adFormat !== "All") {
-            data = await data.filter((info) => info.adFormat === adFormat);
+            const adFormatArr = adFormat.split(",");
+            data = await data.filter((info) =>
+              adFormatArr.includes(info.adFormat)
+            );
           }
         };
 
