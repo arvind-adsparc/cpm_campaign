@@ -19,36 +19,52 @@ export default async function handler(req, res) {
       try {
         console.log("query", req.query);
 
-        const { inventoryType, gamingInventoryType, categories, adFormat } =
-          req.query;
+        const {
+          inventoryType,
+          gamingInventoryType,
+          categories,
+          adFormat,
+          audienceCost,
+          richMedia,
+        } = req.query;
         let data;
 
-        if (inventoryType === "All") {
-          data = await CPMDatabase.find();
-        } else {
+        if (inventoryType && inventoryType !== "All") {
           data = await CPMDatabase.find({ inventoryType });
+        } else {
+          data = await CPMDatabase.find();
         }
 
         const getOtherData = async () => {
-          if (gamingInventoryType !== "All") {
+          if (gamingInventoryType && gamingInventoryType !== "All") {
             data = await data.filter(
               (info) => info.gamingInventoryType === gamingInventoryType
             );
           }
 
-          if (categories !== "All") {
+          if (categories && categories !== "All") {
             const categoriesArr = categories.split(",");
             data = await data.filter((info) =>
               categoriesArr.includes(info.categories)
             );
           }
 
-          if (adFormat !== "All") {
+          if (adFormat && adFormat !== "All") {
             const adFormatArr = adFormat.split(",");
             data = await data.filter((info) =>
               adFormatArr.includes(info.adFormat)
             );
           }
+
+          // if (inventoryType !== "All") {
+
+          // }
+
+          let audienceMargin = (10 / 100) * audienceCost;
+
+          let richMediaCost = richMedia === "Yes" ? 0.5 : 0;
+
+          // let totalCPM = audienceCost + audienceMargin + richMediaCost;
         };
 
         await getOtherData();
