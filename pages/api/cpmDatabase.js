@@ -26,6 +26,7 @@ export default async function handler(req, res) {
           adFormat,
           audienceCost,
           richMedia,
+          campaignCost,
         } = req.query;
         let data;
 
@@ -60,11 +61,22 @@ export default async function handler(req, res) {
 
           // }
 
-          let audienceMargin = (10 / 100) * audienceCost;
+          let audienceMargin = (10 / 100) * parseInt(audienceCost);
 
           let richMediaCost = richMedia === "Yes" ? 0.5 : 0;
 
           // let totalCPM = audienceCost + audienceMargin + richMediaCost;
+
+          data = data.filter(
+            (info) =>
+              parseInt(info.gamCpm) +
+                parseInt(info.adSparcMarignMedia) +
+                parseInt(audienceCost) +
+                audienceMargin +
+                richMediaCost <=
+              parseInt(campaignCost)
+          );
+          console.log("geting this far....");
         };
 
         await getOtherData();
