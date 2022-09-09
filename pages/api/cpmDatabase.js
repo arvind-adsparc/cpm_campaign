@@ -15,10 +15,17 @@ export default async function handler(req, res) {
   await dbConnect();
 
   switch (method) {
+    case "GET":
+      try {
+        console.log("query", req.query);
+        const data = await CPMDatabase.find();
+        res.status(200).json({ data: data });
+      } catch (err) {
+        console.log("err", err);
+      }
+      break;
     case "POST":
       try {
-        console.log("getting this far");
-
         const entry = await CPMDatabase.create(JSON.parse(req.body));
         res.status(201).json({ success: true, data: entry });
       } catch (err) {
@@ -28,8 +35,6 @@ export default async function handler(req, res) {
       }
       break;
     default:
-      console.log("getting this far 3");
-
       res.status(400).json({ success: false });
       break;
   }
