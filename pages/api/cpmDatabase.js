@@ -30,57 +30,63 @@ export default async function handler(req, res) {
         } = req.query;
         let data;
 
-        if (inventoryType && inventoryType !== "All") {
-          data = await CPMDatabase.find({ inventoryType });
+        if (
+          inventoryType &&
+          gamingInventoryType &&
+          categories &&
+          adFormat &&
+          inventoryType &&
+          audienceCost &&
+          campaignCost
+        ) {
+          if (inventoryType !== "All") {
+            data = await CPMDatabase.find({ inventoryType });
+          } else {
+            data = await CPMDatabase.find();
+          }
+
+          const getOtherData = async () => {
+            if (gamingInventoryType !== "All") {
+              data = await data.filter(
+                (info) => info.gamingInventoryType === gamingInventoryType
+              );
+            }
+
+            if (categories !== "All") {
+              const categoriesArr = categories.split(",");
+              data = await data.filter((info) =>
+                categoriesArr.includes(info.categories)
+              );
+            }
+
+            if (adFormat !== "All") {
+              const adFormatArr = adFormat.split(",");
+              data = await data.filter((info) =>
+                adFormatArr.includes(info.adFormat)
+              );
+            }
+
+            let audienceMargin = (10 / 100) * parseInt(audienceCost);
+
+            let richMediaCost = richMedia === "Yes" ? 0.5 : 0;
+
+            data = data.filter(
+              (info) =>
+                parseInt(info.gamCpm) +
+                  parseInt(info.adSparcMarignMedia) +
+                  parseInt(audienceCost) +
+                  audienceMargin +
+                  richMediaCost <=
+                parseInt(campaignCost)
+            );
+            console.log("geting this far....");
+          };
+
+          await getOtherData();
+          res.status(200).json({ length: data.length, data: data });
         } else {
-          data = await CPMDatabase.find();
+          res.status(200).json({ length: 0, data: [] });
         }
-
-        const getOtherData = async () => {
-          if (gamingInventoryType && gamingInventoryType !== "All") {
-            data = await data.filter(
-              (info) => info.gamingInventoryType === gamingInventoryType
-            );
-          }
-
-          if (categories && categories !== "All") {
-            const categoriesArr = categories.split(",");
-            data = await data.filter((info) =>
-              categoriesArr.includes(info.categories)
-            );
-          }
-
-          if (adFormat && adFormat !== "All") {
-            const adFormatArr = adFormat.split(",");
-            data = await data.filter((info) =>
-              adFormatArr.includes(info.adFormat)
-            );
-          }
-
-          // if (inventoryType !== "All") {
-
-          // }
-
-          let audienceMargin = (10 / 100) * parseInt(audienceCost);
-
-          let richMediaCost = richMedia === "Yes" ? 0.5 : 0;
-
-          // let totalCPM = audienceCost + audienceMargin + richMediaCost;
-
-          data = data.filter(
-            (info) =>
-              parseInt(info.gamCpm) +
-                parseInt(info.adSparcMarignMedia) +
-                parseInt(audienceCost) +
-                audienceMargin +
-                richMediaCost <=
-              parseInt(campaignCost)
-          );
-          console.log("geting this far....");
-        };
-
-        await getOtherData();
-        res.status(200).json({ length: data.length, data: data });
       } catch (err) {
         console.log("err", err);
       }
