@@ -27,22 +27,26 @@ export default async function handler(req, res) {
           data = await CPMDatabase.find();
         } else {
           data = await CPMDatabase.find({ inventoryType });
+        }
 
+        const getOtherData = async () => {
           if (gamingInventoryType !== "All") {
-            data = data.filter(
+            data = await data.filter(
               (info) => info.gamingInventoryType === gamingInventoryType
             );
           }
 
           if (categories !== "All") {
-            data = data.filter((info) => info.categories === categories);
+            data = await data.filter((info) => info.categories === categories);
           }
 
           if (adFormat !== "All") {
-            data = data.filter((info) => info.adFormat === adFormat);
+            data = await data.filter((info) => info.adFormat === adFormat);
           }
-        }
-        res.status(200).json({ data: data, length: data.length });
+        };
+
+        await getOtherData();
+        res.status(200).json({ length: data.length, data: data });
       } catch (err) {
         console.log("err", err);
       }
