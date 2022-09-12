@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        console.log("query", req.query);
+        // console.log("query", req.query);
 
         const {
           inventoryType,
@@ -36,7 +36,6 @@ export default async function handler(req, res) {
           categories &&
           adFormat &&
           inventoryType &&
-          audienceCost &&
           campaignCost
         ) {
           if (inventoryType !== "All") {
@@ -66,7 +65,9 @@ export default async function handler(req, res) {
               );
             }
 
-            let audienceMargin = (10 / 100) * parseInt(audienceCost);
+            let audienceCostValue = audienceCost ? audienceCost : 0;
+
+            let audienceMargin = (10 / 100) * parseInt(audienceCostValue);
 
             let richMediaCost = richMedia === "Yes" ? 0.5 : 0;
 
@@ -74,12 +75,12 @@ export default async function handler(req, res) {
               (info) =>
                 parseInt(info.gamCpm) +
                   parseInt(info.adSparcMarignMedia) +
-                  parseInt(audienceCost) +
+                  parseInt(audienceCostValue) +
                   audienceMargin +
                   richMediaCost <=
                 parseInt(campaignCost)
             );
-            console.log("geting this far....");
+            // console.log("geting this far....");
           };
 
           await getOtherData();
