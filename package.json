@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.8",
+    "googleapis": "^108.0.0",
     "mongoose": "^6.4.6",
     "next": "12.2.5",
     "nextjs-cors": "^2.1.1",
