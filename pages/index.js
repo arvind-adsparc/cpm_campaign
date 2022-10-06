@@ -24,15 +24,15 @@ export default function Home() {
     <div className={styles.container}>
       <h1 className="text-3xl font-bold underline">CPM Database API</h1>
 
-      <section>
-        <table className="min-w-full leading-normal">
+      <section className={styles.tableContainer}>
+        <div>Total: {data.body.length}</div>
+        <table className={styles.table}>
+          {/* <caption>Publisher Database</caption> */}
+
           <thead>
             <tr>
               {data.head.map((info) => (
-                <th
-                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  key={info}
-                >
+                <th className={styles.tableContent} key={info}>
                   {info}
                 </th>
               ))}
@@ -43,10 +43,7 @@ export default function Home() {
             {data.body.map((info) => (
               <tr key={info}>
                 {info.map((item) => (
-                  <td
-                    key={item}
-                    className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                  >
+                  <td className={styles.tableContent} key={item}>
                     {item}
                   </td>
                 ))}
