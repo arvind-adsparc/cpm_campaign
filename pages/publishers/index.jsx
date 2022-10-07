@@ -1,15 +1,23 @@
 import { useState, useEffect } from "react";
-
-import { Typography, Spin, Space, Table, Button } from "antd";
+import { Typography, Spin, Space, Table, Input } from "antd";
 import Layout from "../../components/Layout/layout";
+import Link from "next/link";
 
 const { Title } = Typography;
+const { Search } = Input;
 
 const columns = [
   {
     title: "Ad Unit Name",
     dataIndex: "adUnitName",
     key: "adUnitName",
+    width: "300",
+    render: (text, record) => (
+      <Space size="middle">
+        {/* <Link> {text}</Link> */}
+        {text}
+      </Space>
+    ),
   },
   {
     title: "Inventory Type",
@@ -74,6 +82,20 @@ const Publishers = () => {
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState([]);
+  const [orgingalData, setOrignalData] = useState([]);
+
+  const onSearch = (value) => {
+    if (value) {
+      const searchedData = data.filter((info) =>
+        info.adUnitName.includes(value)
+      );
+
+      setData(searchedData);
+      console.log(searchedData);
+    } else {
+      setData(orgingalData);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -86,11 +108,12 @@ const Publishers = () => {
         console.log("result", result);
 
         const modifiedData = result.data.map((info) => {
-          return { ...info };
+          return { key: info._id, ...info };
         });
 
         setData(modifiedData);
 
+        setOrignalData(modifiedData);
         setLoading(false);
       } catch (err) {
         console.log("err", err);
@@ -110,7 +133,22 @@ const Publishers = () => {
         </Spin>
 
         <div>
-          <Table dataSource={data} columns={columns} />
+          <Search
+            placeholder="input search text"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onSearch}
+          />
+        </div>
+        <div>
+          <Table
+            pagination={{
+              position: ["topRight", "bottomRight"],
+            }}
+            dataSource={data}
+            columns={columns}
+          />
         </div>
       </section>
     </Layout>
