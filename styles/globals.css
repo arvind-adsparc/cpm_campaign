@@ -27,7 +27,7 @@ a {
 
 .head-logo {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .logo {
@@ -38,7 +38,6 @@ a {
 .header {
   padding: 0.5rem 0;
   border-bottom: 1px solid #eaeaea;
-  position: sticky;
   right: 0;
   top: 0;
   width: 100%;
@@ -50,6 +49,35 @@ a {
   padding: 1rem 0;
 }
 
+.group {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+  /* width: 40%; */
+}
+
+.group .ant-btn-primary {
+  background-color: blue;
+  border: 1px solid blue;
+}
+
+.refreshBtn button {
+  padding: 0.4em 1.4em;
+  color: blue;
+  margin-left: 1rem;
+  border: 2px solid blue;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+thead {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 8;
+}
+
 /* footer styles */
 
 .footer {
@@ -59,7 +87,7 @@ a {
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
-  position: sticky;
+  /* position: sticky; */
   right: 0;
   bottom: 0;
   width: 100%;

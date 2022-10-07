@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Typography, Spin, Space, Table, Input } from "antd";
 import Layout from "../../components/Layout/layout";
-import Link from "next/link";
+// import Link from "next/link";
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -80,6 +80,7 @@ const columns = [
 
 const Publishers = () => {
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const [data, setData] = useState([]);
   const [orgingalData, setOrignalData] = useState([]);
@@ -122,7 +123,7 @@ const Publishers = () => {
     };
 
     getData();
-  }, []);
+  }, [refresh]);
 
   return (
     <Layout>
@@ -132,20 +133,25 @@ const Publishers = () => {
           <Title level={3}>All Publishers</Title>
         </Spin>
 
-        <div>
-          <Search
-            placeholder="input search text"
-            allowClear
-            enterButton="Search"
-            size="large"
-            onSearch={onSearch}
-          />
+        <div className="group">
+          <Space size={[16, 16]} wrap>
+            <div className="refreshBtn">
+              <button onClick={() => setRefresh(!refresh)}>Refresh</button>
+            </div>
+            <Search
+              placeholder="Search Ad Unit Name"
+              allowClear
+              enterButton="Search"
+              size="large"
+              onSearch={onSearch}
+            />
+          </Space>
         </div>
         <div>
           <Table
-            pagination={{
-              position: ["topRight", "bottomRight"],
-            }}
+            // pagination={{
+            //   position: ["topRight", "bottomRight"],
+            // }}
             dataSource={data}
             columns={columns}
           />
