@@ -129,14 +129,14 @@ export default async function handler(req, res) {
           });
           dataToSend.push(doc);
           // if (index < 37) {
-
           // }
         }
       });
       try {
+        // await CPMDatabase.deleteMany(); // to delete existing entries
         // const entry = await CPMDatabase.create(JSON.parse(req.body));
-        const entry = await CPMDatabase.create(dataToSend);
-        res.status(201).json({ success: true, data: dataToSend });
+        const entry = await CPMDatabase.create(dataToSend); // to create new entries
+        res.status(201).json({ success: true, data: entry });
       } catch (err) {
         console.log("getting this far 2", err);
 
