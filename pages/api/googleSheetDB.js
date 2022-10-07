@@ -109,7 +109,7 @@ export default async function handler(req, res) {
         "appName",
         "gamingInventoryType",
         "categories",
-        "appstore",
+        "appStore",
         "adFormat",
         "appId",
         "adUnitName",

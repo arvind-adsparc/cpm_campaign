@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 
 import { Typography, Spin, Space, Table, Button } from "antd";
+import Layout from "../../components/Layout/layout";
 
 const { Title } = Typography;
 
 const columns = [
+  {
+    title: "Ad Unit Name",
+    dataIndex: "adUnitName",
+    key: "adUnitName",
+  },
   {
     title: "Inventory Type",
     dataIndex: "inventoryType",
@@ -46,11 +52,7 @@ const columns = [
     dataIndex: "appId",
     key: "appId",
   },
-  {
-    title: "Ad Unit Name",
-    dataIndex: "adUnitName",
-    key: "adUnitName",
-  },
+
   {
     title: "Publisher Net Price ($)",
     dataIndex: "publisherNetPrice",
@@ -73,17 +75,45 @@ const Publishers = () => {
 
   const [data, setData] = useState([]);
 
-  return (
-    <section>
-      <Spin size="large" spinning={loading}>
-        {" "}
-        <Title>All Publishers</Title>
-      </Spin>
+  useEffect(() => {
+    setLoading(true);
 
-      <div>
-        <Table dataSource={data} columns={columns} />
-      </div>
-    </section>
+    const getData = async () => {
+      try {
+        const response = await fetch("/api/publishers");
+        const result = await response.json();
+
+        console.log("result", result);
+
+        const modifiedData = result.data.map((info) => {
+          return { ...info };
+        });
+
+        setData(modifiedData);
+
+        setLoading(false);
+      } catch (err) {
+        console.log("err", err);
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
+  return (
+    <Layout>
+      <section>
+        <Spin size="large" spinning={loading}>
+          {" "}
+          <Title level={3}>All Publishers</Title>
+        </Spin>
+
+        <div>
+          <Table dataSource={data} columns={columns} />
+        </div>
+      </section>
+    </Layout>
   );
 };
 

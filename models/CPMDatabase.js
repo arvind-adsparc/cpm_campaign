@@ -16,7 +16,7 @@ const cpmDatabaseSchema = new mongoose.Schema({
   publisherName: {
     type: String,
   },
-  appstore: {
+  appStore: {
     type: String,
   },
   adFormat: {
@@ -46,6 +46,8 @@ const cpmDatabaseSchema = new mongoose.Schema({
   },
 });
 
-const CPMDatabase = mongoose.model("CPMDatabase", cpmDatabaseSchema);
+const CPMDatabase =
+  mongoose.models.CPMDatabase ||
+  mongoose.model("CPMDatabase", cpmDatabaseSchema);
 
 module.exports = CPMDatabase;

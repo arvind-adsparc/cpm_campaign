@@ -18,3 +18,54 @@ a {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+.inner-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.head-logo {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.logo {
+  height: 1em;
+  margin-left: 0.5rem;
+}
+
+.header {
+  padding: 1rem 0;
+  border-bottom: 1px solid #eaeaea;
+  position: sticky;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.page-content {
+  padding: 1rem 0;
+}
+
+/* footer styles */
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 1rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}

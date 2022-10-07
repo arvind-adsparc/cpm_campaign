@@ -12,7 +12,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         console.log("my data", data.data);
-        setData(data.data);
+        // setData(data.data);
         setLoading(false);
       });
   }, []);
