@@ -57,10 +57,11 @@ a {
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: sticky;
   right: 0;
   bottom: 0;
   width: 100%;
+  background-color: #fff;
 }
 
 .footer a {
