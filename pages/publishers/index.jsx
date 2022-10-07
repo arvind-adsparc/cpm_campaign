@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Typography, Spin, Space, Table, Input } from "antd";
 import Layout from "../../components/Layout/layout";
-// import Link from "next/link";
+import Link from "next/link";
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -14,8 +14,9 @@ const columns = [
     width: "300",
     render: (text, record) => (
       <Space size="middle">
-        {/* <Link> {text}</Link> */}
-        {text}
+        {console.log("record", record._id)}
+
+        <a href={`/publishers/${record._id}`}>{text}</a>
       </Space>
     ),
   },
@@ -114,7 +115,7 @@ const Publishers = () => {
 
         setData(modifiedData);
 
-        setOrignalData(modifiedData);
+        // setOrignalData(modifiedData);
         setLoading(false);
       } catch (err) {
         console.log("err", err);
