@@ -76,6 +76,16 @@ export default async function handler(req, res) {
         res.status(400).json({ error: err });
       }
       break;
+    case "DELETE":
+      try {
+        await CPMDatabase.deleteMany(); // to delete existing entries
+        res.json({ success: true, message: "data deleted succesfully" });
+      } catch (err) {
+        console.log("getting this far 2", err);
+
+        res.status(400).json({ error: err });
+      }
+      break;
     case "POST":
       const auth = new google.auth.GoogleAuth({
         credentials: {

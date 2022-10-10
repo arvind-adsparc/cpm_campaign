@@ -113,9 +113,29 @@ const Publishers = () => {
     getData();
   }, [refresh]);
 
-  const deleteEntries = () => {};
+  const onDeleteEntries = async () => {
+    try {
+      const res = await fetch("/api/googleSheetDB", {
+        method: "DELETE",
+      });
 
-  const uploadEntries = () => {};
+      console.log("delete", res);
+    } catch (err) {
+      console.log("delete err", err);
+    }
+  };
+
+  const onUploadEntries = async () => {
+    try {
+      const res = await fetch("/api/googleSheetDB", {
+        method: "POST",
+      });
+
+      console.log("upload res", res);
+    } catch (err) {
+      console.log("upload err", err);
+    }
+  };
 
   const onRefresh = () => {
     setRefresh(!refresh);
@@ -144,13 +164,25 @@ const Publishers = () => {
 
         <div className="group">
           <Space size={[16, 16]} wrap>
-            {data ? (
+            {data.length ? (
               <div className="deleteBtn">
-                <button onClick={onRefresh}>Delete All - Entries</button>
+                <button
+                  onClick={() => {
+                    onRefresh();
+                    onDeleteEntries();
+                  }}
+                >
+                  Delete All - Entries
+                </button>
               </div>
             ) : (
               <div className="uploadBtn">
-                <button onClick={onRefresh}>
+                <button
+                  onClick={() => {
+                    onRefresh();
+                    onUploadEntries();
+                  }}
+                >
                   Upload Google Sheet - Entries
                 </button>
               </div>
