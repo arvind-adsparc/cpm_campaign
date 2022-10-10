@@ -61,14 +61,27 @@ a {
   border: 1px solid blue;
 }
 
-.refreshBtn button {
+button {
   padding: 0.4em 1.4em;
-  color: blue;
   margin-left: 1rem;
-  border: 2px solid blue;
   background: none;
   cursor: pointer;
   font-weight: bold;
+}
+
+.deleteBtn button {
+  color: red;
+  border: 2px solid red;
+}
+
+.uploadBtn button {
+  color: green;
+  border: 2px solid green;
+}
+
+.refreshBtn button {
+  color: blue;
+  border: 2px solid blue;
 }
 
 thead {

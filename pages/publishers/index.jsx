@@ -86,19 +86,6 @@ const Publishers = () => {
   const [data, setData] = useState([]);
   const [orgingalData, setOrignalData] = useState([]);
 
-  const onSearch = (value) => {
-    if (value) {
-      const searchedData = data.filter((info) =>
-        info.adUnitName.includes(value)
-      );
-
-      setData(searchedData);
-      console.log(searchedData);
-    } else {
-      setData(orgingalData);
-    }
-  };
-
   useEffect(() => {
     setLoading(true);
 
@@ -126,6 +113,27 @@ const Publishers = () => {
     getData();
   }, [refresh]);
 
+  const deleteEntries = () => {};
+
+  const uploadEntries = () => {};
+
+  const onRefresh = () => {
+    setRefresh(!refresh);
+  };
+
+  const onSearch = (value) => {
+    if (value) {
+      const searchedData = data.filter((info) =>
+        info.adUnitName.includes(value)
+      );
+
+      setData(searchedData);
+      console.log(searchedData);
+    } else {
+      setData(orgingalData);
+    }
+  };
+
   return (
     <Layout>
       <section>
@@ -136,8 +144,20 @@ const Publishers = () => {
 
         <div className="group">
           <Space size={[16, 16]} wrap>
+            {data ? (
+              <div className="deleteBtn">
+                <button onClick={onRefresh}>Delete - Entries</button>
+              </div>
+            ) : (
+              <div className="uploadBtn">
+                <button onClick={onRefresh}>
+                  Upload Google Sheet - Entries
+                </button>
+              </div>
+            )}
+
             <div className="refreshBtn">
-              <button onClick={() => setRefresh(!refresh)}>Refresh</button>
+              <button onClick={onRefresh}>Refresh</button>
             </div>
             <Search
               placeholder="Search Ad Unit Name"
