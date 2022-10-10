@@ -113,32 +113,38 @@ const Publishers = () => {
     getData();
   }, [refresh]);
 
+  const onRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   const onDeleteEntries = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/googleSheetDB", {
         method: "DELETE",
       });
 
       console.log("delete", res);
+      onRefresh();
     } catch (err) {
       console.log("delete err", err);
+      setLoading(false);
     }
   };
 
   const onUploadEntries = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/googleSheetDB", {
         method: "POST",
       });
 
       console.log("upload res", res);
+      onRefresh();
     } catch (err) {
       console.log("upload err", err);
+      setLoading(false);
     }
-  };
-
-  const onRefresh = () => {
-    setRefresh(!refresh);
   };
 
   const onSearch = (value) => {
@@ -166,7 +172,6 @@ const Publishers = () => {
                 <div className="deleteBtn">
                   <button
                     onClick={() => {
-                      onRefresh();
                       onDeleteEntries();
                     }}
                   >
@@ -177,7 +182,6 @@ const Publishers = () => {
                 <div className="uploadBtn">
                   <button
                     onClick={() => {
-                      onRefresh();
                       onUploadEntries();
                     }}
                   >
