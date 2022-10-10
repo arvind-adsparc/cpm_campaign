@@ -9,9 +9,9 @@ export default function Home() {
         <div className="card">
           <Link href="/publishers">Publishers - Database</Link>
         </div>
-        <div className="card">
+        {/* <div className="card">
           <Link href="/google-sheet-data">Publishers - Google Sheets</Link>
-        </div>
+        </div> */}
       </section>
     </Layout>
   );

@@ -14,7 +14,7 @@ const columns = [
     width: "300",
     render: (text, record) => (
       <Space size="middle">
-        {console.log("record", record._id)}
+        {/* {console.log("record", record._id)} */}
 
         <a href={`/publishers/${record._id}`}>{text}</a>
       </Space>
@@ -102,7 +102,7 @@ const Publishers = () => {
 
         setData(modifiedData);
 
-        // setOrignalData(modifiedData);
+        setOrignalData(modifiedData);
         setLoading(false);
       } catch (err) {
         console.log("err", err);
@@ -160,46 +160,46 @@ const Publishers = () => {
         <Spin size="large" spinning={loading}>
           {" "}
           <Title level={3}>All Publishers</Title>
+          <div className="group">
+            <Space size={[16, 16]} wrap>
+              {data.length ? (
+                <div className="deleteBtn">
+                  <button
+                    onClick={() => {
+                      onRefresh();
+                      onDeleteEntries();
+                    }}
+                  >
+                    Delete All - Entries
+                  </button>
+                </div>
+              ) : (
+                <div className="uploadBtn">
+                  <button
+                    onClick={() => {
+                      onRefresh();
+                      onUploadEntries();
+                    }}
+                  >
+                    Upload Google Sheet - Entries
+                  </button>
+                </div>
+              )}
+
+              <div className="refreshBtn">
+                <button onClick={onRefresh}>Refresh</button>
+              </div>
+              <Search
+                placeholder="Search Ad Unit Name"
+                allowClear
+                enterButton="Search"
+                size="large"
+                onSearch={onSearch}
+              />
+            </Space>
+          </div>
         </Spin>
 
-        <div className="group">
-          <Space size={[16, 16]} wrap>
-            {data.length ? (
-              <div className="deleteBtn">
-                <button
-                  onClick={() => {
-                    onRefresh();
-                    onDeleteEntries();
-                  }}
-                >
-                  Delete All - Entries
-                </button>
-              </div>
-            ) : (
-              <div className="uploadBtn">
-                <button
-                  onClick={() => {
-                    onRefresh();
-                    onUploadEntries();
-                  }}
-                >
-                  Upload Google Sheet - Entries
-                </button>
-              </div>
-            )}
-
-            <div className="refreshBtn">
-              <button onClick={onRefresh}>Refresh</button>
-            </div>
-            <Search
-              placeholder="Search Ad Unit Name"
-              allowClear
-              enterButton="Search"
-              size="large"
-              onSearch={onSearch}
-            />
-          </Space>
-        </div>
         <div>
           <Table
             // pagination={{
