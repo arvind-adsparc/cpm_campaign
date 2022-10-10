@@ -146,7 +146,7 @@ const Publishers = () => {
           <Space size={[16, 16]} wrap>
             {data ? (
               <div className="deleteBtn">
-                <button onClick={onRefresh}>Delete - Entries</button>
+                <button onClick={onRefresh}>Delete All - Entries</button>
               </div>
             ) : (
               <div className="uploadBtn">
